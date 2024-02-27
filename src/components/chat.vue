@@ -65,9 +65,8 @@ import voice from "./voice.vue";
 // import {data} from "autoprefixer";
 
 
-// const URL="https://10.1.40.110:8000"
 const URL = "https://"+window.location.hostname+":8000"
-// const URL = "https://41a2-221-238-213-133.ngrok-free.app/"
+// const URL="https://10.1.40.110:8000"
 export default {
     // eslint-disable-next-line vue/multi-word-component-names
   name: "chat",
