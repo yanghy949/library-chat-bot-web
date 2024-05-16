@@ -13,30 +13,88 @@
 <!--&lt;!&ndash;    </div>&ndash;&gt;-->
 <!--&lt;!&ndash;    <button type=""></button>&ndash;&gt;-->
 <!--  </div>-->
-  <div class="title-box"><img src="../assets/logo.png" class="head" alt=""></div>
+  <div class="title-box">
+    <img src="../assets/logo.png" class="head" alt="">
+    <div class="read">
+      <div id="read" @click="read">
+        <svg v-if="isRead" t="1715830426898" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="9695" width="64" height="64"><path d="M64 362.67v298.67h198.33L512 911V113L262.33 362.67H64zM736 512c0-43.56-11.28-83.22-33.83-119-22.56-35.78-52.5-63-89.83-81.67v399c37.33-17.11 67.28-43.55 89.83-79.33C724.72 595.22 736 555.56 736 512zM612.33 75.67v102.67c71.56 21.78 130.67 63.39 177.33 124.83 46.67 61.44 70 131.06 70 208.83 0 77.78-23.33 147.39-70 208.83C743 782.28 683.89 823.89 612.33 845.66v102.67C677.67 932.78 736.78 904 789.67 862s94.5-93.33 124.83-154S960 582 960 512s-15.17-135.33-45.5-196c-30.34-60.67-71.94-112-124.83-154s-112-70.78-177.34-86.33z" p-id="9696" fill="#ffffff"></path></svg>
+<!--        <img v-if="isRead" src="../../public/read.svg" alt="">-->
+        <svg v-if="!isRead" t="1715830101568" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="9473" width="64" height="64"><path d="M115.52 55.168a42.688 42.688 0 0 0-60.352 60.352L266.112 326.4a356.608 356.608 0 0 1-31.168 1.152c-28.544 0-54.08 0-73.408 1.984-20.224 2.112-39.04 6.72-56 18.24-32.192 22.016-44.544 54.208-49.28 83.84-3.456 22.08-3.072 46.272-2.752 65.856v28.928c-0.32 19.52-0.64 43.712 2.816 65.792 4.672 29.632 17.024 61.824 49.28 83.84 16.896 11.52 35.712 16.128 55.936 18.24 19.328 1.984 44.864 1.984 73.408 1.984 32.96 0 51.84 2.752 67.392 9.152 15.488 6.4 30.72 17.792 53.76 41.28 44.8 45.76 82.88 84.672 112.896 107.648 29.312 22.528 64.128 40.832 101.312 25.088 36.864-15.616 48.64-53.12 53.76-90.048 3.712-26.496 4.8-59.968 5.12-99.904l279.296 279.296a42.688 42.688 0 1 0 60.352-60.352L115.52 55.168zM570.304 144.448c-37.12-15.68-72.064 2.56-101.376 25.088-17.088 13.184-36.928 31.488-59.072 53.376-8.512 8.384-12.8 12.608-12.8 17.92 0 5.312 4.224 9.6 12.8 18.112L585.6 434.752c18.56 18.56 27.904 27.904 35.84 24.64 7.872-3.264 7.872-16.448 7.872-42.752V389.12c0-64.704 0-116.736-5.248-154.56-5.12-36.928-16.896-74.432-53.76-90.048zM883.2 310.912a42.688 42.688 0 0 0-59.776 60.8C869.952 417.536 896 473.792 896 533.376c0 41.6-12.608 81.216-35.776 116.864a42.688 42.688 0 0 0 71.552 46.464c31.36-48.256 49.536-103.872 49.536-163.328 0-85.888-37.824-163.2-98.048-222.4zM758.336 399.616a42.688 42.688 0 1 0-65.92 54.144c21.12 25.792 32.896 56.448 32.896 88.96v2.048a42.688 42.688 0 1 0 85.376-2.048 224.64 224.64 0 0 0-52.352-143.104z" fill="#ffffff" p-id="9474"></path></svg>
+<!--        <img v-if="!isRead" src="../../public/unRead.svg" alt="">-->
+        <span>语音朗读</span>
+      </div>
+    </div>
+
+  </div>
 </template>
 
 <script>
+const synth = window.speechSynthesis;
+
 export default {
     // eslint-disable-next-line vue/multi-word-component-names
-  name: "state"
+  name: "state",
+
+  data(){
+    return{
+      isRead:false
+    }
+  },
+  methods:{
+    read(){
+      this.isRead=!this.isRead
+      synth.cancel()
+    },
+    async readTxt(message){
+      if(this.isRead){
+        const msg = new SpeechSynthesisUtterance();
+        msg.text = message;     // 文字内容
+        msg.lang = "zh-CN";  // 使用的语言:中文
+        msg.volume = 1;      // 声音音量：0-1
+        msg.rate = 1.5;        // 语速：0-10
+        msg.pitch = 0.8;       // 音高：0-1
+        synth.speak(msg);
+        console.log(msg);
+      }
+    },
+
+  },
+
+
 }
 </script>
 
 <style scoped>
 
+.title-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .head {
   position: relative;
   margin-top: 2vh;
-  /*margin-bottom: 2vh;*/
-  margin-right: 2vh;
+  margin-right: 40px;
   height: 10vh;
   user-select: none;
-  /*border-radius: 100%;*/
+  width: 50%;
 }
-
-.title-box {
+.read{
+  width: 50%;
   display: flex;
+  justify-content: end;
+  margin-right: 5vh;
 }
-
+#read{
+  height: 100%;
+  color: white;
+  border: none;
+  background-color: unset;
+  display: flex;
+  flex-direction: column;
+}
+#read svg{
+  width: 50px;
+  height: 50px;
+}
 </style>

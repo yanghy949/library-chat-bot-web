@@ -1,9 +1,9 @@
 <template>
   <div class="chat">
-    <state></state>
+    <state ref="read"></state>
     <div class="chatwindow">
       <div class="frame">
-        <div class="msgbox" ref="msgBox">
+        <div class="msgbox" ref="msgBox" id="msgBox">
           <div v-for="[key,msg,date] in messages" :key="key" class="msg-box">
             <div class="msg-box1" v-if="key==='get'">
               <div class="msg1">{{ msg }}</div>
@@ -22,15 +22,15 @@
           </div>
 
           <!--          参考文档-->
-<!--          <h3 align="center" v-if="!showCont" @click="setcont" class="ckwd">>>参考文档<<</h3>-->
-<!--            <div style="display: flex;justify-content: center;align-items:center;margin-bottom:20px;margin-top:20px">-->
-<!--            <div style="background: rgb(151,157,167);border-radius: 15px;width: 80%" v-if="cont.length">-->
-<!--              <h3 align="center" v-if="showCont" style="user-select: none;" @click="setcont">&#8595;参考文档&#8595;</h3>-->
-<!--              <div class="word" v-if="showCont">-->
-<!--                <div v-html="cont"></div>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--          </div>-->
+          <!--          <h3 align="center" v-if="!showCont" @click="setcont" class="ckwd">>>参考文档<<</h3>-->
+          <!--            <div style="display: flex;justify-content: center;align-items:center;margin-bottom:20px;margin-top:20px">-->
+          <!--            <div style="background: rgb(151,157,167);border-radius: 15px;width: 80%" v-if="cont.length">-->
+          <!--              <h3 align="center" v-if="showCont" style="user-select: none;" @click="setcont">&#8595;参考文档&#8595;</h3>-->
+          <!--              <div class="word" v-if="showCont">-->
+          <!--                <div v-html="cont"></div>-->
+          <!--              </div>-->
+          <!--            </div>-->
+          <!--          </div>-->
 
         </div>
         <div style="height: 25px"></div>
@@ -44,10 +44,10 @@
                  autofocus placeholder="在这里输入内容或使用语音录入"/>
 
           <voice title="使用语言输入" @voiced="voiced"></voice>
-          <button class="send" @click="send" :disabled="this.inputtext.length===0">
+          <button class="send" @click=" send" :disabled="this.inputtext.length===0">
             <svg class="icon" viewBox="0 0 1024 1024" width="100%" height="100%">
               <path
-                d="M955 125.6c-4.5-12.5-15.4-21.8-28.6-24.2-9.2-1.7-18.4 0.1-26.1 4.8L83.9 544.3c-12.8 6.8-20.6 20.6-19.8 35.1 0.8 14.3 9.9 27.3 23.2 32.9l238.5 97.9c12.4 5.2 26.8 3.4 37.5-4.9s16.1-21.3 14.4-34.8c-1.6-13.2-10.4-24.6-23-29.9l-165-67.7 573-307.3-357 421.9c-6.5 7.7-9.6 17.4-8.8 27.4L411.4 884c1.6 19.7 17.7 34.6 37.5 34.6 9.5 0 18.7-3.7 25.8-10.4l74-69.2 0.1-0.1c13.5-13.2 15.2-33.5 4.8-48.4l222.6 72c4 1.3 7.9 2 11.7 2 18.2 0 33.8-12.9 37-30.6l131.6-688.3h-0.1c1.4-6.6 0.9-13.5-1.4-20zM497.3 783.8L479.9 800l-6.5-75.9L856 271.6l-96.8 506.3L539 706.6c-19.7-6.4-41.1 4.4-47.5 24.2-5.8 17.9 2.5 37.1 18.9 45.4-4.7 1.5-9.2 4-13.1 7.6z"></path>
+                  d="M955 125.6c-4.5-12.5-15.4-21.8-28.6-24.2-9.2-1.7-18.4 0.1-26.1 4.8L83.9 544.3c-12.8 6.8-20.6 20.6-19.8 35.1 0.8 14.3 9.9 27.3 23.2 32.9l238.5 97.9c12.4 5.2 26.8 3.4 37.5-4.9s16.1-21.3 14.4-34.8c-1.6-13.2-10.4-24.6-23-29.9l-165-67.7 573-307.3-357 421.9c-6.5 7.7-9.6 17.4-8.8 27.4L411.4 884c1.6 19.7 17.7 34.6 37.5 34.6 9.5 0 18.7-3.7 25.8-10.4l74-69.2 0.1-0.1c13.5-13.2 15.2-33.5 4.8-48.4l222.6 72c4 1.3 7.9 2 11.7 2 18.2 0 33.8-12.9 37-30.6l131.6-688.3h-0.1c1.4-6.6 0.9-13.5-1.4-20zM497.3 783.8L479.9 800l-6.5-75.9L856 271.6l-96.8 506.3L539 706.6c-19.7-6.4-41.1 4.4-47.5 24.2-5.8 17.9 2.5 37.1 18.9 45.4-4.7 1.5-9.2 4-13.1 7.6z"></path>
             </svg>
           </button>
         </div>
@@ -66,10 +66,10 @@ import voice from "./voice.vue";
 
 
 const URL = "https://"+window.location.hostname+":8000"
-// const URL="https://10.1.40.110:8000"
-///
+// const URL = "https://10.1.40.56:8000"
+///、
 export default {
-    // eslint-disable-next-line vue/multi-word-component-names
+  // eslint-disable-next-line vue/multi-word-component-names
   name: "chat",
   props: ['msg'],
   components: {
@@ -85,7 +85,7 @@ export default {
       inputtext: '',
       messages: [],
       text: '',
-      message: '',
+      // message: '',
       transcription: '',
       history: [
         ["从现在开始你是贝壳图书馆的聊天机器人，我会称呼你为小贝", "好的，我是贝壳图书馆的聊天机器人，你可以叫我小贝"]
@@ -94,6 +94,10 @@ export default {
   },
 
   methods: {
+    readT(msg){
+      this.$refs.read.readTxt(msg)
+    }
+    ,
     voiced(message) {
       console.log(message);
       // this.inputtext = message
@@ -109,25 +113,53 @@ export default {
       // 使用模板字符串拼接日期字符串
       return `${year}-${month}-${day} ${hour}:${minute}:${second}`;
     },
-
+//普通输出
     async poster(msg) {
       const now = new Date()
       this.messages.push(['send', msg, this.diytime(now)])
-      const res = await axios.post(URL, {
-        prompt: msg,
-        history: this.history,
-        temperature: 0.5,
-        max_length: 2048,
-        top_p: 0.7
-      })
+      const res = await axios.post(URL, this.msgData(msg))
       this.messages.push(["get", res.data.response, res.data.time])
+      this.readT(res.data.response)
       this.history = res.data.history
       // this.cont = markdownIt().render(res.data.cont)
       localStorage.setItem('savedData', JSON.stringify(res.data));
     },
 
+    //流式输出
+/*    async poster(msg) {
+      this.messages.push(['send', msg, this.diytime(new Date())])
+      const index = this.messages.length
+      this.messages.push(['get','',''])
+      const res = await fetch(URL, {
+        method: 'POST',
+        body: JSON.stringify(this.msgData(msg))
+      })
+      console.log(res.body);
+      const reader = res.body.getReader();
+      const textDecoder = new TextDecoder();
+      // eslint-disable-next-line no-constant-condition
+      while (1){
+        const {done,value}=await reader.read();
+        if (done){break}
+        const str = textDecoder.decode(value)
+        this.messages[index][1]+=str
+        console.log(str);
+        this.readT(str)
+      }
+      this.messages[index][2]=this.diytime(new Date())
+    },*/
+
     setcont() {
       this.showCont = !this.showCont; // 点击时切换showCont的值
+    },
+    msgData(msg){
+      return{
+        prompt: msg,
+        history: this.history,
+        temperature: 0.5,
+        max_length: 2048,
+        top_p: 0.7
+      }
     },
 
     send() {
@@ -151,13 +183,22 @@ export default {
 
   },
   watch: {
-    messages() {
-      this.$nextTick(() => {
-        const messageBox = this.$refs.msgBox;
-        messageBox.scrollTop = messageBox.scrollHeight;
-        // 将滚动条滚动到结尾处
-      });
+
+    messages: {
+      // eslint-disable-next-line no-unused-vars
+      handler(newVal, oldVal) {
+        this.$nextTick(() => {
+          const messageBox = this.$refs.msgBox;
+          if (messageBox) {
+            messageBox.scrollTop = messageBox.scrollHeight;
+            // 将滚动条滚动到结尾处
+          }
+        });
+      },
+      deep: true, // 深度监听，确保检测数组内容的变化
+      immediate: false, // 如果需要组件创建时立即执行一次，可以设置为 true
     },
+
     msg() {
       this.poster(this.msg)
     }
@@ -371,18 +412,21 @@ export default {
   align-items: center;
   overflow: auto;
   scrollbar-width: none;
-  &::-webkit-scrollbar{
+
+  &::-webkit-scrollbar {
     display: none;
   }
 }
-.ckwd{
+
+.ckwd {
   user-select: none;
   color: white;
-  background-color: rgb(151,157,167);
+  background-color: rgb(151, 157, 167);
   border-radius: 90vw;
   margin-left: 40%;
   margin-right: 40%;
 }
+
 #send {
   right: -18vh;
   padding-right: 0;
