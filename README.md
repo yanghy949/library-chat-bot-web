@@ -8,8 +8,6 @@
 
 ### 部署方法
 
-#### 本项目仅包含前段界面，后端项目地址
-
 - ```shell
 	//拉取请求
 	git@github.com:yanghy949/library-chat-bot-web.git
