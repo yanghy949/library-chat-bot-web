@@ -1,24 +1,24 @@
-# new
+# 校园图书馆聊天机器人-web
 
-## Project setup
-```
-npm install
-```
+### 项目截图
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+<img width="1280" alt="截图2" src="https://github.com/yanghy949/library-chat-bot-web/assets/63854174/22079b07-d471-4f72-8a39-fe77a2768990">
 
-### Compiles and minifies for production
-```
-npm run build
-```
+#### [访问链接(仅页面)](http://yanghy.22web.org/)
 
-### Lints and fixes files
-```
-npm run lint
-```
+### 部署方法
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+#### 本项目仅包含前段界面，后端项目地址
+
+- ```shell
+	//拉取请求
+	git@github.com:yanghy949/library-chat-bot-web.git
+	```
+- ```shell
+	//项目安装
+	npm install
+	```
+- ```shell
+	//启动项目
+	npm run serve
+	```
