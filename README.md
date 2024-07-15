@@ -6,7 +6,7 @@
 
 #### [访问链接(仅页面)](http://yanghy.22web.org/)
 
-### 部署方法
+### 部署方法(仅页面)
 
 - ```shell
 	//拉取请求
@@ -20,3 +20,7 @@
 	//启动项目
 	npm run serve
 	```
+### 完整项目(Docker)
+- ```shell
+	docker pull registry.cn-chengdu.aliyuncs.com/yanghy949/chatbot:1
+  ```
