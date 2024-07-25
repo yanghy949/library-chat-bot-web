@@ -6,7 +6,7 @@
 
 <img width="1280" alt="截图2" src="https://github.com/yanghy949/library-chat-bot-web/assets/63854174/22079b07-d471-4f72-8a39-fe77a2768990">
 
-#### [访问链接(仅页面)](http://yanghy.22web.org/)
+#### [访问链接(仅页面)](http://chatbot.my-style.in/)
 
 ### 部署方法(web)
 
